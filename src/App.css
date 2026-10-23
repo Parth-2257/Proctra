@@ -232,3 +232,45 @@ body {
 
   justify-content: flex-start;
 }
+
+/* =========================
+   Camera
+========================= */
+
+.video-preview {
+  position: fixed;
+
+  top: 20px;
+  right: 20px;
+
+  width: 180px;
+  height: 115px;
+
+  object-fit: cover;
+
+  border-radius: 8px;
+
+  background: #111111;
+
+  z-index: 10;
+}
+
+/*
+This keeps the camera element alive
+for screenshots but prevents it from
+appearing in the layout.
+*/
+
+.hidden-video {
+  position: fixed;
+
+  width: 1px;
+  height: 1px;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  top: -100px;
+  left: -100px;
+}
