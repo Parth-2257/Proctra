@@ -1,0 +1,62 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  background: #f5f4f2;
+  color: #282828;
+}
+
+/* =========================
+   Setup Page
+========================= */
+
+.page-container {
+  width: 100%;
+  min-height: 100vh;
+
+  padding: 60px 40px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* =========================
+   Header
+========================= */
+
+.header-section {
+  text-align: center;
+
+  margin-bottom: 30px;
+}
+
+.header-section h1 {
+  font-size: 20px;
+  font-weight: 500;
+
+  color: #242424;
+
+  margin-bottom: 6px;
+}
+
+.header-section p {
+  font-size: 17px;
+  font-weight: 400;
+
+  color: #333333;
+}
