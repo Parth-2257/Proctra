@@ -1,9 +1,27 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 function App() {
   const videoRef = useRef(null);
+
+  const [time, setTime] = useState(0);
+  const [started, setStarted] = useState(false);
   const [cameraReady, setCameraReady] = useState(false);
+
+  async function getLaspedTime() {
+    const currTime = await window.electronAPI.getRemainingTime();
+    setTime(currTime);
+  }
+
+  useEffect(() => {
+    if (!started) return;
+
+    const interval = setInterval(() => {
+      getLaspedTime();
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [started]);
 
   async function getCamera() {
     const videoData = await navigator.mediaDevices.getUserMedia({
@@ -19,13 +37,34 @@ function App() {
     await window.electronAPI.setFullScreen();
   }
 
+  async function startTest() {
+    await window.electronAPI.startTest();
+    setStarted(true);
+  }
+
+  function formatTimeLeft(ms) {
+    const seconds = Math.floor((ms / 1000) % 60)
+      .toString()
+      .padStart(2, "0");
+
+    const minutes = Math.floor((ms / (1000 * 60)) % 60)
+      .toString()
+      .padStart(2, "0");
+
+    const hours = Math.floor(ms / (1000 * 60 * 60))
+      .toString()
+      .padStart(2, "0");
+
+    return `${hours}:${minutes}:${seconds}`;
+  }
+
   return (
     <>
       <video
         ref={videoRef}
         autoPlay
         muted
-        className={cameraReady ? "video-preview" : "hidden-video"}
+        className={cameraReady && !started ? "video-preview" : "hidden-video"}
       />
 
       <div className="page-container">
@@ -50,7 +89,7 @@ function App() {
           </div>
 
           <div className="divider" />
-
+          
           <div className="permission-item">
             <div className="permission-icon">⛶</div>
 
@@ -67,9 +106,12 @@ function App() {
         </div>
 
         <div className="bottom-actions">
-          <button className="btn btn-light-blue">Go To Test</button>
+          <button onClick={startTest} className="btn btn-light-blue">
+            Go To Test
+          </button>
           <button className="btn btn-outline">Need Help?</button>
         </div>
+        <p>Time Left : {formatTimeLeft(time)}</p>
       </div>
     </>
   );
