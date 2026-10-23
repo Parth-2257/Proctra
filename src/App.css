@@ -60,3 +60,95 @@ body {
 
   color: #333333;
 }
+
+/* =========================
+   Main Card
+========================= */
+
+.card-container {
+  width: 100%;
+  max-width: 920px;
+
+  background: #ffffff;
+
+  border: 1px solid #e7e4df;
+  border-radius: 12px;
+
+  overflow: hidden;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.025);
+}
+
+/* =========================
+   Permission Section
+========================= */
+
+.permission-item {
+  display: grid;
+
+  grid-template-columns: 42px 1fr;
+
+  column-gap: 26px;
+
+  padding: 44px 48px;
+}
+
+/* =========================
+   Icon
+========================= */
+
+.permission-icon {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+
+  padding-top: 4px;
+
+  color: #464646;
+
+  font-size: 22px;
+}
+
+/* =========================
+   Permission Content
+========================= */
+
+.permission-content {
+  text-align: left;
+}
+
+.permission-content h3 {
+  font-size: 21px;
+
+  font-weight: 600;
+
+  color: #2b2b2b;
+
+  margin-bottom: 10px;
+}
+
+.permission-content p {
+  font-size: 15px;
+
+  color: #666666;
+
+  margin-bottom: 24px;
+
+  line-height: 1.5;
+}
+
+/* =========================
+   Divider
+========================= */
+
+.divider {
+  height: 1px;
+
+  background: #ebe9e5;
+
+  margin-left: 48px;
+  margin-right: 48px;
+}
