@@ -152,3 +152,83 @@ body {
   margin-left: 48px;
   margin-right: 48px;
 }
+
+/* =========================
+   Buttons
+========================= */
+
+.btn {
+  padding: 12px 24px;
+
+  border-radius: 8px;
+
+  border: none;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    transform 0.1s ease;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+/* Reference dark button */
+
+.btn-dark {
+  background: #263c53;
+
+  color: white;
+}
+
+.btn-dark:hover {
+  background: #1f3246;
+}
+
+/* Reference blue */
+
+.btn-light-blue {
+  background: #7eb5e9;
+
+  color: white;
+}
+
+.btn-light-blue:hover {
+  background: #6ca8df;
+}
+
+/* White secondary button */
+
+.btn-outline {
+  background: white;
+
+  border: 1px solid #d9d6d1;
+
+  color: #333333;
+}
+
+.btn-outline:hover {
+  background: #faf9f7;
+}
+
+/* =========================
+   Bottom Buttons
+========================= */
+
+.bottom-actions {
+  width: 100%;
+  max-width: 920px;
+
+  display: flex;
+
+  gap: 12px;
+
+  margin-top: 18px;
+
+  justify-content: flex-start;
+}
