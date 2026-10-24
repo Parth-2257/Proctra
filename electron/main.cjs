@@ -1,4 +1,9 @@
-const { BrowserWindow, app, ipcMain } = require("electron");
+const {
+  BrowserWindow,
+  app,
+  ipcMain,
+  dialog,
+} = require("electron");
 const path = require("path");
 
 let win = null;
@@ -29,6 +34,16 @@ ipcMain.handle("start-test", () => {
 
 ipcMain.handle("get-time", () => {
   return end_time - Date.now();
+});
+
+ipcMain.handle("showexam-rules", async () => {
+  const res = await dialog.showMessageBox(win, {
+    type: "info",
+    buttons: ["Accept", "Cancel"],
+    title: "Exam Rules",
+    message: "Please follow the exam rules.",
+  });
+  console.log(res); // 0 for Accept, 1 for Cancel
 });
 
 app.whenReady().then(() => {
