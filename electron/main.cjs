@@ -27,6 +27,10 @@ ipcMain.handle("start-test", () => {
   end_time = Date.now() + 60 * 60 * 60;
 });
 
+ipcMain.handle("get-time", () => {
+  return end_time - Date.now();
+});
+
 app.whenReady().then(() => {
   createWindow();
 });
