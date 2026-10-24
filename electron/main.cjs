@@ -21,6 +21,12 @@ ipcMain.handle("full-screen", () => {
   win.kiosk = true;
 });
 
+let end_time = null;
+
+ipcMain.handle("start-test", () => {
+  end_time = Date.now() + 60 * 60 * 60;
+});
+
 app.whenReady().then(() => {
   createWindow();
 });
