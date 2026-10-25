@@ -1,0 +1,48 @@
+{
+  "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
+  "appId": "com.proctra.exam",
+  "productName": "Proctra",
+  "directories": {
+    "output": "release",
+    "buildResources": "build"
+  },
+  "files": [
+    "dist/**/*",
+    "electron/main.cjs",
+    "electron/preload.cjs",
+    "!electron/camera_feed/**",
+    "package.json"
+  ],
+  "mac": {
+    "category": "public.app-category.education",
+    "icon": "build/icon.icns",
+    "hardenedRuntime": false,
+    "gatekeeperAssess": false,
+    "entitlements": "build/entitlements.mac.plist",
+    "entitlementsInherit": "build/entitlements.mac.inherit.plist",
+    "extendInfo": {
+      "NSCameraUsageDescription": "Proctra requires camera access for continuous visual proctoring and identity verification during examinations.",
+      "NSMicrophoneUsageDescription": "Proctra requires microphone access to detect audio anomalies and environment noise during examinations."
+    },
+    "identity": null
+  },
+  "dmg": {
+    "title": "Proctra Installer",
+    "contents": [
+      {
+        "x": 130,
+        "y": 200
+      },
+      {
+        "x": 410,
+        "y": 200,
+        "type": "link",
+        "path": "/Applications"
+      }
+    ],
+    "window": {
+      "width": 540,
+      "height": 380
+    }
+  }
+}

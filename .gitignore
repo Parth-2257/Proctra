@@ -14,7 +14,12 @@ node_modules/
 dist/
 dist-ssr/
 out/
-build/
+release/
+dist_electron/
+*.dmg
+*.blockmap
+!build/icon.*
+!build/entitlements.*
 
 # Local environment files & secrets
 .env

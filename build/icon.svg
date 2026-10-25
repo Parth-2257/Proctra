@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1d4ed8" />
+      <stop offset="100%" stop-color="#1e3a8a" />
+    </linearGradient>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#e0e7ff" />
+    </linearGradient>
+    <linearGradient id="lensGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- macOS Big Sur squircle container -->
+  <rect x="64" y="64" width="896" height="896" rx="200" fill="url(#bgGrad)" filter="url(#shadow)" />
+
+  <!-- Inner subtle border -->
+  <rect x="64" y="64" width="896" height="896" rx="200" fill="none" stroke="#60a5fa" stroke-width="6" stroke-opacity="0.4" />
+
+  <!-- Shield Shape -->
+  <path d="M512 210 C650 210, 740 250, 740 250 C740 470, 660 670, 512 790 C364 670, 284 470, 284 250 C284 250, 374 210, 512 210 Z" 
+        fill="url(#shieldGrad)" 
+        filter="url(#shadow)" />
+
+  <!-- Proctor Eye / Lens outer ring -->
+  <circle cx="512" cy="470" r="140" fill="url(#lensGrad)" />
+  <circle cx="512" cy="470" r="115" fill="#0f172a" />
+  
+  <!-- Iris and Pupil -->
+  <circle cx="512" cy="470" r="75" fill="#2563eb" />
+  <circle cx="512" cy="470" r="45" fill="#ffffff" />
+  <circle cx="530" cy="452" r="16" fill="#93c5fd" />
+
+  <!-- Shield accent lock dot / indicator -->
+  <circle cx="512" cy="670" r="18" fill="#1d4ed8" />
+  <rect x="507" y="680" width="10" height="24" rx="4" fill="#1d4ed8" />
+</svg>

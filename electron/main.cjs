@@ -7,7 +7,9 @@ let isExamActive = false;
 let isAllowQuit = false;
 let end_time = null;
 
-const cameraFeedDir = path.join(__dirname, "camera_feed");
+const cameraFeedDir = app.isPackaged
+  ? path.join(app.getPath("userData"), "camera_feed")
+  : path.join(__dirname, "camera_feed");
 const auditLogFile = path.join(cameraFeedDir, "audit_log.json");
 
 function ensureAuditLog() {
@@ -53,13 +55,20 @@ function createWindow() {
     },
   });
 
-  const devUrl = "http://localhost:5173/";
-  win.loadURL(devUrl).catch(() => {
+  if (app.isPackaged) {
     const distPath = path.join(__dirname, "../dist/index.html");
-    if (fs.existsSync(distPath)) {
-      win.loadFile(distPath);
-    }
-  });
+    win.loadFile(distPath).catch((err) => {
+      console.error("Failed to load production HTML:", err);
+    });
+  } else {
+    const devUrl = "http://localhost:5173/";
+    win.loadURL(devUrl).catch(() => {
+      const distPath = path.join(__dirname, "../dist/index.html");
+      if (fs.existsSync(distPath)) {
+        win.loadFile(distPath);
+      }
+    });
+  }
 
   // Track fullscreen changes and notify renderer
   win.on("enter-full-screen", () => {
