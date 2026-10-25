@@ -16,10 +16,10 @@ export default function WarningModal({
   const [pinError, setPinError] = useState("");
 
   const handleVerifyPinAndQuit = () => {
-    if (pin.trim() === "invigilo2026" || pin.trim() === "admin123" || pin.trim() === "1234") {
+    if (pin.trim() === "proctra2026" || pin.trim() === "admin123" || pin.trim() === "1234") {
       onInvigilatorQuit();
     } else {
-      setPinError("Incorrect PIN. Please enter: invigilo2026");
+      setPinError("Incorrect PIN. Please enter: proctra2026");
     }
   };
 
@@ -63,7 +63,7 @@ export default function WarningModal({
               <div className="pin-input-row">
                 <input
                   type="text"
-                  placeholder="PIN is: invigilo2026"
+                  placeholder="PIN is: proctra2026"
                   value={pin}
                   onChange={(e) => {
                     setPin(e.target.value);

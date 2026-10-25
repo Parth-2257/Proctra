@@ -6,9 +6,9 @@ export default function Header({
   timeFormatted,
 }) {
   return (
-    <header className="invigilo-header">
+    <header className="proctra-header">
       <div className="brand-badge">
-        <span className="brand-title">Invigilo</span>
+        <span className="brand-title">Proctra</span>
         <span className="brand-sub">Examination Portal</span>
       </div>
 

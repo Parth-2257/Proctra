@@ -9,7 +9,7 @@ import WarningModal from "./components/WarningModal";
 import InvigilatorModal from "./components/InvigilatorModal";
 import { DEFAULT_QUESTIONS } from "./data/questions";
 
-const SESSION_STORAGE_KEY = "invigilo_active_session";
+const SESSION_STORAGE_KEY = "proctra_active_session";
 
 function App() {
   const videoRef = useRef(null);
@@ -376,7 +376,7 @@ function App() {
   };
 
   return (
-    <div className="invigilo-app">
+    <div className="proctra-app">
       {/* Background Persistent Camera & Canvas */}
       <video
         ref={videoRef}

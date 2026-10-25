@@ -1,5 +1,5 @@
 /* ==========================================================================
-   INVIGILO PROCTORING SUITE - CLEAN WHITE THEME
+   PROCTRA PROCTORING SUITE - CLEAN WHITE THEME
    ========================================================================== */
 
 * {
@@ -16,7 +16,7 @@ html, body, #root {
   color: #111827;
 }
 
-.invigilo-app {
+.proctra-app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -27,7 +27,7 @@ html, body, #root {
    HEADER
    ========================================================================== */
 
-.invigilo-header {
+.proctra-header {
   height: 56px;
   background: #ffffff;
   border-bottom: 1px solid #e5e7eb;

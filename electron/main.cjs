@@ -39,12 +39,13 @@ function createWindow() {
   ensureAuditLog();
 
   win = new BrowserWindow({
+    title: "Proctra",
     width: 1200,
     height: 800,
     minWidth: 900,
     minHeight: 650,
     frame: false,
-    backgroundColor: "#0f172a",
+    backgroundColor: "#ffffff",
     webPreferences: {
       preload: path.join(__dirname, "preload.cjs"),
       contextIsolation: true,
@@ -249,7 +250,7 @@ ipcMain.handle("show-rules", async () => {
   if (!win) return 1;
   const result = await dialog.showMessageBox(win, {
     type: "info",
-    title: "Exam Rules - Invigilo Proctor",
+    title: "Exam Rules - Proctra",
     message: "Please read and confirm the proctoring rules before starting.",
     detail:
       "1. Camera and microphone must stay active throughout the test.\n" +

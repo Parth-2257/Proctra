@@ -38,7 +38,7 @@ export default function InvigilatorModal({ isOpen, onClose, onForceQuit }) {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (pin.trim() === "invigilo2026" || pin.trim() === "admin123" || pin.trim() === "1234") {
+    if (pin.trim() === "proctra2026" || pin.trim() === "admin123" || pin.trim() === "1234") {
       setIsAuthenticated(true);
       setPinError("");
       loadAuditData();
@@ -55,7 +55,7 @@ export default function InvigilatorModal({ isOpen, onClose, onForceQuit }) {
         <div className="modal-header-bar">
           <div className="invigilator-title">
             <span>🛡️</span>
-            <h3>Invigilo Proctoring Review Dashboard</h3>
+            <h3>Proctra Proctoring Review Dashboard</h3>
           </div>
           <button type="button" onClick={onClose} className="modal-close-btn">
             ✕
@@ -69,7 +69,7 @@ export default function InvigilatorModal({ isOpen, onClose, onForceQuit }) {
               <input
                 type="password"
                 autoFocus
-                placeholder="PIN (Default: invigilo2026)"
+                placeholder="PIN (Default: proctra2026)"
                 value={pin}
                 onChange={(e) => setPin(e.target.value)}
                 className="input-pin"
