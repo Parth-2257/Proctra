@@ -213,6 +213,35 @@ html, body, #root {
   gap: 16px;
 }
 
+.perm-camera-preview-box {
+  position: relative;
+  width: 130px;
+  height: 85px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #d1d5db;
+  background: #000000;
+}
+
+.perm-video-stream {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+}
+
+.perm-video-tag {
+  position: absolute;
+  bottom: 3px;
+  left: 4px;
+  font-size: 10px;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.65);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-weight: 500;
+}
+
 .mic-meter-wrapper {
   display: flex;
   align-items: center;
@@ -336,22 +365,8 @@ html, body, #root {
 }
 
 /* ==========================================================================
-   CAMERA VIDEO PIP
+   CAMERA VIDEO CAPTURE (PERSISTENT & INVISIBLE)
    ========================================================================== */
-
-.video-preview {
-  position: fixed;
-  top: 68px;
-  right: 24px;
-  width: 160px;
-  height: 105px;
-  object-fit: cover;
-  border-radius: 6px;
-  background: #000000;
-  border: 1px solid #d1d5db;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  z-index: 40;
-}
 
 .hidden-video {
   position: fixed;
@@ -364,23 +379,77 @@ html, body, #root {
 }
 
 /* ==========================================================================
-   INSTRUCTIONS SCREEN
+   INSTRUCTIONS SCREEN (2-COLUMN SPLIT LAYOUT)
    ========================================================================== */
 
-.instructions-card {
-  padding: 8px 0;
+.instructions-page-wrapper {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 24px 20px 60px;
 }
 
-.instruction-item {
+.instructions-split-layout {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* Left Column */
+.instructions-left-col {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 28px 32px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.instructions-header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 6px;
+}
+
+.instructions-header p {
+  font-size: 14px;
+  color: #4b5563;
+  margin-bottom: 16px;
+}
+
+.exam-meta-strip {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.meta-item {
+  font-size: 12.5px;
+  color: #374151;
+  background: #f9fafb;
+  padding: 5px 12px;
+  border-radius: 4px;
+  border: 1px solid #e5e7eb;
+}
+
+.instructions-list-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.instruction-row {
   display: flex;
   align-items: flex-start;
-  gap: 16px;
-  padding: 20px 28px;
+  gap: 14px;
+  padding: 14px 0;
 }
 
-.instruction-number {
-  width: 28px;
-  height: 28px;
+.instruction-step {
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   background: #eff6ff;
   color: #1d4ed8;
@@ -392,44 +461,162 @@ html, body, #root {
   flex-shrink: 0;
 }
 
-.instruction-text h4 {
+.instruction-details h4 {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 3px;
+}
+
+.instruction-details p {
+  font-size: 13px;
+  color: #4b5563;
+  line-height: 1.45;
+}
+
+.agreement-container {
+  margin-top: 18px;
+  padding: 14px 18px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+}
+
+.instructions-left-actions {
+  margin-top: 18px;
+  display: flex;
+}
+
+/* Right Column: Camera + Start Test */
+.instructions-right-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.camera-verification-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.camera-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.camera-card-header h3 {
   font-size: 15px;
   font-weight: 600;
   color: #111827;
-  margin-bottom: 4px;
 }
 
-.instruction-text p {
-  font-size: 14px;
-  color: #4b5563;
-  line-height: 1.5;
+.live-camera-tag {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #166534;
+  background: #dcfce7;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.agreement-box {
-  padding: 20px 28px;
-  background: #f9fafb;
-  border-top: 1px solid #e5e7eb;
+.live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #16a34a;
 }
 
-.checkbox-label {
+/* Increased length/height of camera window and centered */
+.camera-feed-viewport {
+  position: relative;
+  width: 100%;
+  height: 340px;
+  background: #000000;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #d1d5db;
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-size: 14px;
-  color: #1f2937;
-  cursor: pointer;
+  justify-content: center;
 }
 
-.checkbox-label input {
-  width: 18px;
-  height: 18px;
-  accent-color: #2563eb;
-  cursor: pointer;
+.instructions-video-stream {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
 }
 
-.instructions-actions {
-  justify-content: flex-end;
-  gap: 12px;
+/* Proctoring face positioning oval */
+.face-oval-guide {
+  position: absolute;
+  width: 160px;
+  height: 210px;
+  border: 2px dashed rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.viewport-overlay-bottom {
+  position: absolute;
+  bottom: 10px;
+  background: rgba(0, 0, 0, 0.65);
+  color: #ffffff;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.readiness-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 16px 0;
+  background: #f9fafb;
+  padding: 12px 14px;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  font-size: 13px;
+  color: #374151;
+}
+
+.readiness-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.check-icon {
+  color: #166534;
+  font-weight: 700;
+}
+
+.start-test-action-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.btn-start-test {
+  width: 100%;
+  padding: 13px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.start-disabled-hint {
+  font-size: 12px;
+  color: #6b7280;
+  text-align: center;
+  margin-top: 4px;
 }
 
 /* ==========================================================================
@@ -599,14 +786,37 @@ html, body, #root {
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 6px;
-  padding: 16px;
+  padding: 14px;
 }
 
-.proctor-hud-card h4 {
+.hud-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.hud-card-header h4 {
   font-size: 13px;
   font-weight: 600;
   color: #111827;
-  margin-bottom: 4px;
+}
+
+.hud-video-box {
+  width: 100%;
+  height: 130px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #000000;
+  margin-bottom: 8px;
+  border: 1px solid #d1d5db;
+}
+
+.hud-video-feed {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
 }
 
 .hud-caption {

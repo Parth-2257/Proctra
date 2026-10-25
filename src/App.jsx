@@ -25,6 +25,7 @@ function App() {
   const [cameraReady, setCameraReady] = useState(false);
   const [micReady, setMicReady] = useState(false);
   const [fullscreenReady, setFullscreenReady] = useState(false);
+  const [mediaStream, setMediaStream] = useState(null);
   const [cameraError, setCameraError] = useState("");
   const [micError, setMicError] = useState("");
   const [audioLevel, setAudioLevel] = useState(0);
@@ -200,6 +201,7 @@ function App() {
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
       }
+      setMediaStream(stream);
       setCameraReady(true);
 
       const videoTrack = stream.getVideoTracks()[0];
@@ -381,7 +383,7 @@ function App() {
         autoPlay
         playsInline
         muted
-        className={cameraReady && screen !== "exam" && screen !== "results" ? "video-preview" : "hidden-video"}
+        className="hidden-video"
       />
       <canvas ref={canvasRef} style={{ display: "none" }} />
 
@@ -407,6 +409,7 @@ function App() {
           cameraError={cameraError}
           micError={micError}
           audioLevel={audioLevel}
+          mediaStream={mediaStream}
         />
       )}
 
@@ -414,6 +417,7 @@ function App() {
         <InstructionsScreen
           onStartTest={handleStartExam}
           onBackToPermissions={() => setScreen("permissions")}
+          mediaStream={mediaStream}
         />
       )}
 
@@ -430,6 +434,7 @@ function App() {
           visitedQuestions={visitedQuestions}
           violationsCount={violationsCount}
           onOpenSubmitModal={() => setActiveModal("submit")}
+          mediaStream={mediaStream}
         />
       )}
 

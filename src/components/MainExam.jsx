@@ -1,3 +1,5 @@
+import { useRef, useEffect } from "react";
+
 export default function MainExam({
   questions,
   currentQuestionIndex,
@@ -10,9 +12,17 @@ export default function MainExam({
   visitedQuestions,
   violationsCount,
   onOpenSubmitModal,
+  mediaStream,
 }) {
   const currentQuestion = questions[currentQuestionIndex];
   const totalQuestions = questions.length;
+  const examVideoRef = useRef(null);
+
+  useEffect(() => {
+    if (examVideoRef.current && mediaStream) {
+      examVideoRef.current.srcObject = mediaStream;
+    }
+  }, [mediaStream]);
 
   const currentAnswer = answers[currentQuestion.id];
   const isMarked = markedForReview.includes(currentQuestion.id);
@@ -130,10 +140,26 @@ export default function MainExam({
 
       {/* Right Sidebar: Question Palette & Proctor HUD */}
       <aside className="exam-sidebar">
-        {/* Proctoring Simple Status */}
+        {/* Proctoring HUD Camera View */}
         <div className="proctor-hud-card">
-          <h4>Proctoring Status</h4>
-          <p className="hud-caption">Camera monitoring and active window tracking are enabled.</p>
+          <div className="hud-card-header">
+            <h4>Proctoring Active</h4>
+            <span className="live-camera-tag">
+              <span className="live-dot"></span> Live
+            </span>
+          </div>
+
+          <div className="hud-video-box">
+            <video
+              ref={examVideoRef}
+              autoPlay
+              playsInline
+              muted
+              className="hud-video-feed"
+            />
+          </div>
+
+          <p className="hud-caption">Camera feed and window focus are actively monitored.</p>
         </div>
 
         {/* Question Palette */}

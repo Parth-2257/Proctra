@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export default function PermissionScreen({
   cameraReady,
@@ -11,8 +11,16 @@ export default function PermissionScreen({
   cameraError,
   micError,
   audioLevel,
+  mediaStream,
 }) {
   const [validationError, setValidationError] = useState("");
+  const permVideoRef = useRef(null);
+
+  useEffect(() => {
+    if (permVideoRef.current && mediaStream) {
+      permVideoRef.current.srcObject = mediaStream;
+    }
+  }, [mediaStream]);
 
   const allReady = cameraReady && micReady && fullscreenReady;
 
@@ -77,6 +85,19 @@ export default function PermissionScreen({
               >
                 {cameraReady ? "✓ Camera Allowed" : "Allow Camera Access"}
               </button>
+
+              {cameraReady && (
+                <div className="perm-camera-preview-box">
+                  <video
+                    ref={permVideoRef}
+                    autoPlay
+                    playsInline
+                    muted
+                    className="perm-video-stream"
+                  />
+                  <span className="perm-video-tag">Camera Live</span>
+                </div>
+              )}
             </div>
           </div>
         </div>
