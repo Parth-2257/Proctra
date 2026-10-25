@@ -1,0 +1,58 @@
+export const DEFAULT_QUESTIONS = [
+  {
+    id: 1,
+    category: "Data Structures",
+    question: "What is the worst-case time complexity of searching an element in a Balanced Binary Search Tree (AVL Tree) with n elements?",
+    options: ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
+    correctAnswer: 1,
+  },
+  {
+    id: 2,
+    category: "Operating Systems",
+    question: "Which of the following conditions is NOT required for a deadlock to occur in a multi-process system?",
+    options: ["Mutual Exclusion", "Hold and Wait", "Preemption allowed", "Circular Wait"],
+    correctAnswer: 2,
+  },
+  {
+    id: 3,
+    category: "Computer Networks",
+    question: "In the OSI model, at which layer does the Address Resolution Protocol (ARP) primarily operate?",
+    options: ["Network Layer (Layer 3)", "Data Link Layer (Layer 2)", "Transport Layer (Layer 4)", "Application Layer (Layer 7)"],
+    correctAnswer: 1,
+  },
+  {
+    id: 4,
+    category: "Web & Architecture",
+    question: "What mechanism does Electron use to securely allow renderer processes to communicate with Node.js APIs without disabling context isolation?",
+    options: ["eval() in renderer", "IPC with contextBridge", "Direct window.__proto__ injection", "document.cookie transport"],
+    correctAnswer: 1,
+  },
+  {
+    id: 5,
+    category: "Database Systems",
+    question: "Which normal form specifically addresses and eliminates multi-valued dependencies?",
+    options: ["First Normal Form (1NF)", "Third Normal Form (3NF)", "Fourth Normal Form (4NF)", "Boyce-Codd Normal Form (BCNF)"],
+    correctAnswer: 2,
+  },
+  {
+    id: 6,
+    category: "Algorithms",
+    question: "Dijkstra's shortest path algorithm cannot correctly handle graphs containing which of the following?",
+    options: ["Negative edge weights", "Directed edges", "Cycles with positive weights", "Multiple connected components"],
+    correctAnswer: 0,
+  },
+  {
+    id: 7,
+    category: "Software Engineering",
+    question: "In the SOLID design principles, what does the 'L' stand for?",
+    options: ["Linear Execution Principle", "Liskov Substitution Principle", "Late Binding Principle", "Loose Coupling Principle"],
+    correctAnswer: 1,
+  },
+  {
+    id: 8,
+    category: "System Design",
+    question: "Which hashing technique minimizes the number of keys that need to be remapped when the number of cache servers changes?",
+    options: ["SHA-256", "Linear Probing", "Consistent Hashing", "Modulo Hashing"],
+    correctAnswer: 2,
+  },
+];
