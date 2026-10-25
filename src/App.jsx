@@ -392,7 +392,6 @@ function App() {
         cameraReady={cameraReady}
         micReady={micReady}
         timeFormatted={formatTime(remainingTimeMs)}
-        onOpenInvigilator={() => setIsInvigilatorOpen(true)}
       />
 
       {/* View router */}
@@ -438,9 +437,7 @@ function App() {
         <ResultScreen
           questions={questions}
           answers={answers}
-          markedForReview={markedForReview}
           violationsCount={violationsCount}
-          onOpenInvigilator={() => setIsInvigilatorOpen(true)}
           onExit={handleInvigilatorForceQuit}
         />
       )}

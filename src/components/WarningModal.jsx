@@ -19,7 +19,7 @@ export default function WarningModal({
     if (pin.trim() === "invigilo2026" || pin.trim() === "admin123" || pin.trim() === "1234") {
       onInvigilatorQuit();
     } else {
-      setPinError("Invalid Invigilator PIN. Please contact proctor.");
+      setPinError("Incorrect PIN. Please enter: invigilo2026");
     }
   };
 
@@ -28,52 +28,42 @@ export default function WarningModal({
       <div className="modal-card">
         {/* BLUR / TAB SWITCH WARNING */}
         {type === "blur" && (
-          <div className="warning-content blur-warning">
-            <div className="modal-icon-badge icon-red">⚠️</div>
-            <h2>PROCTORING VIOLATION: APPLICATION FOCUS LOST</h2>
+          <div className="warning-content">
+            <h2>Warning: Window Focus Lost</h2>
             <p className="warning-strike-text">
               Strike <strong>{violationsCount} of 3</strong>
             </p>
             <p className="modal-desc">
-              You navigated away from the exam window or switched applications. This incident has been
-              recorded with a timestamp and flagged in the invigilation audit log.
+              You navigated away from the exam or switched to another window. All focus switching is recorded.
+              Please stay on the test screen to avoid test cancellation.
             </p>
-            <div className="modal-notice-box">
-              {violationsCount >= 3 ? (
-                <span className="notice-critical">
-                  🚨 Maximum strikes reached! Your exam session is currently flagged for Unfair Means (UFM) review.
-                </span>
-              ) : (
-                <span>
-                  Please return your full attention to the exam. Reaching 3 strikes results in immediate disciplinary review.
-                </span>
-              )}
+            <div className="modal-actions-split">
+              <button
+                type="button"
+                onClick={onDismiss}
+                className="btn btn-blue"
+              >
+                Return to Exam
+              </button>
             </div>
-            <button
-              type="button"
-              onClick={onDismiss}
-              className="btn btn-primary btn-modal-action"
-            >
-              I Understand & Return to Exam
-            </button>
           </div>
         )}
 
         {/* QUIT ATTEMPT WARNING */}
         {type === "quit" && (
-          <div className="warning-content quit-warning">
-            <div className="modal-icon-badge icon-red">🛑</div>
-            <h2>UNAUTHORIZED APPLICATION EXIT DETECTED</h2>
+          <div className="warning-content">
+            <h2>Exit Test Confirmation</h2>
             <p className="modal-desc">
-              You attempted to quit or close the examination window. Exiting without prior authorization from the invigilator is classified as <strong>Unfair Means (UFM)</strong> and may result in immediate test disqualification.
+              Exiting the test early without invigilator permission is recorded as an unapproved exit.
+              To exit, enter the authorization PIN below:
             </p>
 
             <div className="invigilator-override-box">
-              <label>Invigilator Override PIN (To Authorized Exit):</label>
+              <label>Authorization PIN:</label>
               <div className="pin-input-row">
                 <input
-                  type="password"
-                  placeholder="Enter PIN (e.g., invigilo2026)"
+                  type="text"
+                  placeholder="PIN is: invigilo2026"
                   value={pin}
                   onChange={(e) => {
                     setPin(e.target.value);
@@ -84,9 +74,9 @@ export default function WarningModal({
                 <button
                   type="button"
                   onClick={handleVerifyPinAndQuit}
-                  className="btn btn-danger-sm"
+                  className="btn btn-danger"
                 >
-                  Authorized Quit
+                  Confirm Exit
                 </button>
               </div>
               {pinError && <span className="pin-error-text">{pinError}</span>}
@@ -96,9 +86,9 @@ export default function WarningModal({
               <button
                 type="button"
                 onClick={onDismiss}
-                className="btn btn-primary"
+                className="btn btn-blue"
               >
-                Continue Exam & Cancel Quit
+                Cancel & Continue Exam
               </button>
             </div>
           </div>
@@ -106,11 +96,10 @@ export default function WarningModal({
 
         {/* SUBMIT CONFIRMATION */}
         {type === "submit" && (
-          <div className="warning-content submit-confirm">
-            <div className="modal-icon-badge icon-blue">📋</div>
-            <h2>Ready to Submit Your Exam?</h2>
+          <div className="warning-content">
+            <h2>Submit Exam</h2>
             <p className="modal-desc">
-              Please review your summary before finalizing. Once submitted, your test session will end and kiosk mode will be released.
+              Are you sure you want to finish and submit your exam?
             </p>
 
             <div className="submit-summary-grid">
@@ -120,22 +109,22 @@ export default function WarningModal({
               </div>
               <div className="summary-stat-box">
                 <span className="stat-label">Answered</span>
-                <span className="stat-val stat-green">{answeredCount}</span>
+                <span className="stat-val">{answeredCount}</span>
               </div>
               <div className="summary-stat-box">
                 <span className="stat-label">Unanswered</span>
-                <span className="stat-val stat-red">{totalQuestions - answeredCount}</span>
+                <span className="stat-val">{totalQuestions - answeredCount}</span>
               </div>
               <div className="summary-stat-box">
                 <span className="stat-label">Marked for Review</span>
-                <span className="stat-val stat-purple">{markedCount}</span>
+                <span className="stat-val">{markedCount}</span>
               </div>
             </div>
 
             {totalQuestions - answeredCount > 0 && (
-              <div className="modal-notice-box notice-warning">
-                ⚠️ You still have {totalQuestions - answeredCount} unanswered question(s). You can go back and answer them before submitting.
-              </div>
+              <p className="modal-unanswered-warn">
+                Note: You have {totalQuestions - answeredCount} unanswered question(s).
+              </p>
             )}
 
             <div className="modal-actions-split">
@@ -144,14 +133,14 @@ export default function WarningModal({
                 onClick={onDismiss}
                 className="btn btn-outline"
               >
-                ← Return to Exam
+                Cancel
               </button>
               <button
                 type="button"
                 onClick={onSubmitConfirm}
-                className="btn btn-success-primary"
+                className="btn btn-blue"
               >
-                Yes, Submit Exam
+                Submit Now
               </button>
             </div>
           </div>
@@ -159,11 +148,10 @@ export default function WarningModal({
 
         {/* SESSION RESUME */}
         {type === "resume" && (
-          <div className="warning-content resume-prompt">
-            <div className="modal-icon-badge icon-blue">🔄</div>
-            <h2>Active Exam Session Detected</h2>
+          <div className="warning-content">
+            <h2>Resume Saved Session</h2>
             <p className="modal-desc">
-              Invigilo detected an active exam session from a previous launch. Your answers and remaining time have been recovered.
+              An ongoing exam session was found. Would you like to resume your progress or start over?
             </p>
 
             <div className="modal-actions-split">
@@ -172,14 +160,14 @@ export default function WarningModal({
                 onClick={onResumeDiscard}
                 className="btn btn-outline"
               >
-                Discard & Start New
+                Start Over
               </button>
               <button
                 type="button"
                 onClick={onResumeConfirm}
-                className="btn btn-primary"
+                className="btn btn-blue"
               >
-                Resume Saved Exam
+                Resume Exam
               </button>
             </div>
           </div>

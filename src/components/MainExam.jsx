@@ -17,7 +17,6 @@ export default function MainExam({
   const currentAnswer = answers[currentQuestion.id];
   const isMarked = markedForReview.includes(currentQuestion.id);
 
-  // Status stats for summary
   const answeredCount = Object.keys(answers).length;
   const markedCount = markedForReview.length;
   const unansweredCount = totalQuestions - answeredCount;
@@ -28,12 +27,12 @@ export default function MainExam({
       <main className="exam-main-panel">
         <div className="exam-toolbar">
           <div className="question-category-tag">
-            <span>Subject:</span> <strong>{currentQuestion.category || "General Engineering"}</strong>
+            <span>Subject:</span> <strong>{currentQuestion.category || "General"}</strong>
           </div>
 
           <div className="exam-toolbar-right">
             <span className={`violations-pill ${violationsCount > 0 ? "has-violations" : ""}`}>
-              ⚠️ Warning Strikes: <strong>{violationsCount}/3</strong>
+              Warnings / Focus Loss: <strong>{violationsCount}</strong>
             </span>
           </div>
         </div>
@@ -44,7 +43,7 @@ export default function MainExam({
             <span className="question-counter">
               Question {currentQuestionIndex + 1} of {totalQuestions}
             </span>
-            {isMarked && <span className="status-badge badge-purple">★ Marked for Review</span>}
+            {isMarked && <span className="status-badge badge-purple">Marked for Review</span>}
           </div>
 
           <p className="question-prompt">{currentQuestion.question}</p>
@@ -79,9 +78,9 @@ export default function MainExam({
               <button
                 type="button"
                 onClick={() => onToggleMarkForReview(currentQuestion.id)}
-                className={`btn btn-secondary ${isMarked ? "btn-purple-active" : ""}`}
+                className={`btn ${isMarked ? "btn-blue" : "btn-outline"}`}
               >
-                {isMarked ? "★ Unmark Review" : "☆ Mark for Review"}
+                {isMarked ? "Unmark Review" : "Mark for Review"}
               </button>
 
               {currentAnswer !== undefined && (
@@ -100,7 +99,7 @@ export default function MainExam({
                 type="button"
                 onClick={() => setCurrentQuestionIndex((prev) => Math.max(0, prev - 1))}
                 disabled={currentQuestionIndex === 0}
-                className="btn btn-secondary"
+                className="btn btn-outline"
               >
                 ← Previous
               </button>
@@ -111,7 +110,7 @@ export default function MainExam({
                   onClick={() =>
                     setCurrentQuestionIndex((prev) => Math.min(totalQuestions - 1, prev + 1))
                   }
-                  className="btn btn-primary"
+                  className="btn btn-blue"
                 >
                   Next →
                 </button>
@@ -119,7 +118,7 @@ export default function MainExam({
                 <button
                   type="button"
                   onClick={onOpenSubmitModal}
-                  className="btn btn-finish-primary"
+                  className="btn btn-blue"
                 >
                   Review & Submit
                 </button>
@@ -131,18 +130,15 @@ export default function MainExam({
 
       {/* Right Sidebar: Question Palette & Proctor HUD */}
       <aside className="exam-sidebar">
-        {/* Proctoring HUD Mini Status */}
+        {/* Proctoring Simple Status */}
         <div className="proctor-hud-card">
-          <div className="hud-header">
-            <span className="live-pulse"></span>
-            <h4>PROCTORING SURVEILLANCE</h4>
-          </div>
-          <p className="hud-caption">Face and active screen are being captured periodically.</p>
+          <h4>Proctoring Status</h4>
+          <p className="hud-caption">Camera monitoring and active window tracking are enabled.</p>
         </div>
 
         {/* Question Palette */}
         <div className="palette-card">
-          <h4>Question Palette</h4>
+          <h4>Questions Palette</h4>
 
           <div className="palette-grid">
             {questions.map((q, idx) => {
@@ -152,9 +148,7 @@ export default function MainExam({
               const isVis = visitedQuestions.includes(q.id);
 
               let itemClass = "palette-unvisited";
-              if (isAns && isMrk) {
-                itemClass = "palette-answered-marked";
-              } else if (isAns) {
+              if (isAns) {
                 itemClass = "palette-answered";
               } else if (isMrk) {
                 itemClass = "palette-marked";
@@ -195,9 +189,9 @@ export default function MainExam({
             <button
               type="button"
               onClick={onOpenSubmitModal}
-              className="btn btn-submit-exam"
+              className="btn btn-blue btn-block"
             >
-              Finish & Submit Exam
+              Submit Exam
             </button>
           </div>
         </div>

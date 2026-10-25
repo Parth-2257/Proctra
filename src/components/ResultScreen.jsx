@@ -1,83 +1,110 @@
 export default function ResultScreen({
   questions,
   answers,
-  markedForReview,
   violationsCount,
-  onOpenInvigilator,
   onExit,
 }) {
   const total = questions.length;
-  const answered = Object.keys(answers).length;
-  const unanswered = total - answered;
-  const marked = markedForReview.length;
+  let correctCount = 0;
+
+  questions.forEach((q) => {
+    if (answers[q.id] === q.correctAnswer) {
+      correctCount++;
+    }
+  });
+
+  const attemptedCount = Object.keys(answers).length;
+  const incorrectCount = attemptedCount - correctCount;
+  const skippedCount = total - attemptedCount;
+  const scorePercent = Math.round((correctCount / total) * 100);
 
   return (
     <div className="page-container result-page">
       <div className="header-section">
-        <div className="badge-tag tag-success">EXAMINATION SUBMITTED SUCCESSFULLY</div>
-        <h1>Assessment & Proctoring Completion Report</h1>
-        <p>Your responses have been securely encrypted and submitted to the evaluation server.</p>
+        <h1>Exam Results</h1>
+        <p>Your test has been successfully submitted and evaluated.</p>
       </div>
 
       <div className="card-container result-card">
-        {/* Compliance Banner */}
-        <div className={`compliance-banner ${violationsCount === 0 ? "compliance-clean" : "compliance-flagged"}`}>
-          <div className="compliance-icon">
-            {violationsCount === 0 ? "🛡️" : "⚠️"}
+        {/* Score Header Card */}
+        <div className="score-summary-banner">
+          <div className="score-main">
+            <span className="score-number">{correctCount} / {total}</span>
+            <span className="score-label">Questions Correct ({scorePercent}%)</span>
           </div>
-          <div className="compliance-info">
-            <h4>
-              {violationsCount === 0
-                ? "Clean Proctoring Record — High Integrity"
-                : `Proctoring Audit: ${violationsCount} Warning Strike(s) Recorded`}
-            </h4>
-            <p>
-              {violationsCount === 0
-                ? "No window switching, focus losses, or unauthorized exit attempts were observed."
-                : "Application focus deviations occurred. Telemetry and snapshots have been archived for invigilator scrutiny."}
-            </p>
+
+          <div className="score-chips">
+            <div className="score-chip chip-correct">
+              <span className="chip-label">Correct</span>
+              <span className="chip-val">{correctCount}</span>
+            </div>
+            <div className="score-chip chip-incorrect">
+              <span className="chip-label">Incorrect</span>
+              <span className="chip-val">{incorrectCount}</span>
+            </div>
+            <div className="score-chip chip-skipped">
+              <span className="chip-label">Skipped</span>
+              <span className="chip-val">{skippedCount}</span>
+            </div>
+            <div className="score-chip">
+              <span className="chip-label">Total Questions</span>
+              <span className="chip-val">{total}</span>
+            </div>
           </div>
         </div>
 
-        {/* Stats Grid */}
-        <div className="result-stats-grid">
-          <div className="result-stat-box">
-            <span className="res-stat-num">{total}</span>
-            <span className="res-stat-name">Total Questions</span>
+        {/* Proctoring & Integrity Result */}
+        <div className={`integrity-card ${violationsCount === 0 ? "integrity-clean" : "integrity-flagged"}`}>
+          <div className="integrity-status-header">
+            <h4>Proctoring & Integrity Result</h4>
+            <span className={`status-pill ${violationsCount === 0 ? "status-pass" : "status-warn"}`}>
+              {violationsCount === 0 ? "PASSED • CLEAN" : "FLAGGED FOR REVIEW"}
+            </span>
           </div>
-
-          <div className="result-stat-box">
-            <span className="res-stat-num stat-green">{answered}</span>
-            <span className="res-stat-name">Attempted</span>
-          </div>
-
-          <div className="result-stat-box">
-            <span className="res-stat-num stat-red">{unanswered}</span>
-            <span className="res-stat-name">Unattempted</span>
-          </div>
-
-          <div className="result-stat-box">
-            <span className="res-stat-num stat-purple">{marked}</span>
-            <span className="res-stat-name">Marked for Review</span>
-          </div>
+          <p className="integrity-desc">
+            {violationsCount === 0
+              ? "No malpractice, window switching, focus losses, or illegal exit attempts were detected during your examination session."
+              : `Warning: ${violationsCount} incident(s) of application focus loss or tab switching were caught and logged during the test. This has been attached to your submission report.`}
+          </p>
         </div>
 
-        {/* Questions breakdown */}
-        <div className="responses-summary-list">
-          <h4>Submitted Question Responses</h4>
-          <div className="response-chips-grid">
+        {/* Questions Breakdown */}
+        <div className="questions-review-section">
+          <h3>Question-by-Question Review</h3>
+          <div className="questions-review-list">
             {questions.map((q, idx) => {
-              const ansIdx = answers[q.id];
-              const isAns = ansIdx !== undefined;
+              const selectedIdx = answers[q.id];
+              const isAnswered = selectedIdx !== undefined;
+              const isCorrect = isAnswered && selectedIdx === q.correctAnswer;
+
               return (
-                <div
-                  key={q.id}
-                  className={`response-chip ${isAns ? "chip-answered" : "chip-unanswered"}`}
-                >
-                  <span className="chip-q">Q{idx + 1}:</span>
-                  <span className="chip-val">
-                    {isAns ? `Option ${String.fromCharCode(65 + ansIdx)}` : "Skipped"}
-                  </span>
+                <div key={q.id} className="review-question-row">
+                  <div className="review-q-header">
+                    <span className="review-q-num">Q{idx + 1}. {q.question}</span>
+                    <span className={`review-badge ${!isAnswered ? "badge-skipped" : isCorrect ? "badge-correct" : "badge-incorrect"}`}>
+                      {!isAnswered ? "Skipped" : isCorrect ? "✓ Correct" : "✗ Incorrect"}
+                    </span>
+                  </div>
+
+                  <div className="review-options-summary">
+                    <div className="review-ans-item">
+                      <span className="ans-label">Your Answer:</span>
+                      <span className={`ans-text ${!isAnswered ? "text-muted" : isCorrect ? "text-green" : "text-red"}`}>
+                        {isAnswered
+                          ? `${String.fromCharCode(65 + selectedIdx)}: ${q.options[selectedIdx]}`
+                          : "Not Attempted"}
+                      </span>
+                    </div>
+
+                    {!isCorrect && (
+                      <div className="review-ans-item">
+                        <span className="ans-label">Correct Answer:</span>
+                        <span className="ans-text text-green">
+                          {String.fromCharCode(65 + q.correctAnswer)}: {q.options[q.correctAnswer]}
+                        </span>
+                      </div>
+                    )}
+                  </div>
                 </div>
               );
             })}
@@ -88,18 +115,10 @@ export default function ResultScreen({
       <div className="bottom-actions result-actions">
         <button
           type="button"
-          onClick={onOpenInvigilator}
-          className="btn btn-outline"
-        >
-          🛡️ View Proctoring Audit Log
-        </button>
-
-        <button
-          type="button"
           onClick={onExit}
-          className="btn btn-primary"
+          className="btn btn-blue"
         >
-          Exit Assessment Application
+          Close & Exit Application
         </button>
       </div>
     </div>

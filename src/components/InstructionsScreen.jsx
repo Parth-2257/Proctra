@@ -6,19 +6,18 @@ export default function InstructionsScreen({ onStartTest, onBackToPermissions })
   return (
     <div className="page-container">
       <div className="header-section">
-        <div className="badge-tag">INVIGILO PROCTORING PROTOCOL</div>
-        <h1>Candidate Exam Instructions & Guidelines</h1>
-        <p>Please read these instructions thoroughly before initiating the proctored test session.</p>
+        <h1>Exam Instructions</h1>
+        <p>Please read these instructions carefully before starting the test.</p>
       </div>
 
       <div className="card-container instructions-card">
         <div className="instruction-item">
           <div className="instruction-number">1</div>
           <div className="instruction-text">
-            <h4>Mandatory Fullscreen Lockdown</h4>
+            <h4>Fullscreen Requirement</h4>
             <p>
-              The exam runs in a locked kiosk fullscreen environment. Any attempt to exit fullscreen,
-              minimize the window, or resize will immediately register as an examination violation.
+              The exam must remain in fullscreen mode. Exiting fullscreen or minimizing the application
+              will register as an exam strike.
             </p>
           </div>
         </div>
@@ -28,10 +27,10 @@ export default function InstructionsScreen({ onStartTest, onBackToPermissions })
         <div className="instruction-item">
           <div className="instruction-number">2</div>
           <div className="instruction-text">
-            <h4>Prohibition on Tab & Application Switching</h4>
+            <h4>No Tab or Window Switching</h4>
             <p>
-              Multitasking, keyboard shortcuts (Alt+Tab, Cmd+Tab), and background applications are strictly monitored.
-              Window focus loss triggers immediate warning strikes. Exceeding 3 strikes flags the session for cancellation.
+              Do not switch tabs, open other applications, or press Alt+Tab / Cmd+Tab. Any loss of window
+              focus is logged as a violation.
             </p>
           </div>
         </div>
@@ -41,10 +40,10 @@ export default function InstructionsScreen({ onStartTest, onBackToPermissions })
         <div className="instruction-item">
           <div className="instruction-number">3</div>
           <div className="instruction-text">
-            <h4>Continuous Camera & Microphone Surveillance</h4>
+            <h4>Camera & Microphone Monitoring</h4>
             <p>
-              Your camera and microphone must remain unobstructed with your face centered in good lighting.
-              Automated proctoring periodically captures snapshots and audio telemetry throughout the session.
+              Your camera and microphone must remain connected throughout the test. Random photo snapshots
+              are recorded to verify identity.
             </p>
           </div>
         </div>
@@ -54,23 +53,10 @@ export default function InstructionsScreen({ onStartTest, onBackToPermissions })
         <div className="instruction-item">
           <div className="instruction-number">4</div>
           <div className="instruction-text">
-            <h4>Exam Navigation & Palette</h4>
+            <h4>Question Navigation & Submission</h4>
             <p>
-              You can navigate between questions using the Question Palette on the right or the Previous/Next buttons.
-              Use 'Mark for Review' to bookmark questions you want to reconsider before final submission.
-            </p>
-          </div>
-        </div>
-
-        <div className="divider" />
-
-        <div className="instruction-item">
-          <div className="instruction-number">5</div>
-          <div className="instruction-text">
-            <h4>Strict Submission & Malpractice (UFM) Notice</h4>
-            <p>
-              Only submit when you are completely finished. Exiting prematurely or force-quitting the application
-              without invigilator authorization will be classified as Unfair Means (UFM) with automatic zero score.
+              You can navigate between questions using Next, Previous, or the Question Palette on the right.
+              Submit your test before the timer expires.
             </p>
           </div>
         </div>
@@ -83,8 +69,7 @@ export default function InstructionsScreen({ onStartTest, onBackToPermissions })
               onChange={(e) => setAgreed(e.target.checked)}
             />
             <span>
-              I confirm that my testing space is isolated, my webcam and microphone are functioning properly,
-              and I agree to comply with all Invigilo Proctoring guidelines.
+              I have read and agree to comply with all examination rules and proctoring requirements.
             </span>
           </label>
         </div>
@@ -96,16 +81,16 @@ export default function InstructionsScreen({ onStartTest, onBackToPermissions })
           onClick={onBackToPermissions}
           className="btn btn-outline"
         >
-          ← Back to Permissions
+          ← Back
         </button>
 
         <button
           type="button"
           onClick={onStartTest}
           disabled={!agreed}
-          className={`btn ${agreed ? "btn-primary-active" : "btn-disabled"}`}
+          className={`btn ${agreed ? "btn-blue" : "btn-disabled"}`}
         >
-          Start Test Now 🚀
+          Start Test
         </button>
       </div>
     </div>
